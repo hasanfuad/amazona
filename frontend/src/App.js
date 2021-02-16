@@ -1,7 +1,9 @@
 import React from 'react';
+import {BrowserRouter,Route,Link} from 'react-router-dom';
 import data from './data'
 
-
+import HomeScreens from './Screens/HomeScreens';
+import ProductScreen from './Screens/ProductScreen';
 function App() {
   const openMenu= ()=>{
     document.querySelector(".sidebar").classList.add("open");
@@ -10,6 +12,7 @@ function App() {
     document.querySelector(".sidebar").classList.remove("open");
   }
   return (
+    <BrowserRouter>
 
     <div className="grid-container">
         <header className="header">
@@ -17,7 +20,7 @@ function App() {
                 <button onClick={openMenu}>
                     &#9776;
                 </button>
-                <a href="index.html">Amazona</a>
+                <Link to="/">Amazona</Link>
             </div>
             <div className="header-links">
                 <a href="cart.html">Cart</a>
@@ -38,29 +41,14 @@ function App() {
         </aside>
         <main className="main">
             <div className="content">
-                <ul className="products">
-                  {
-                    data.products.map( pd =>
-                      <li>
-                    <div className="product">
-                      <img src={pd.images} alt="" className="product-image"/>
-                      <div className="product-name">
-                        <a href="product.html">{pd.image}</a>
-                      </div>
-                      <div className="product-brand">{pd.brand}</div>
-                      <div className="product-price">${pd.price}</div>
-                      <div className="product-rating">{pd.rating}Stars ({pd.reviews}reviews)</div>
-                    </div>
-                  </li>
-                    )
-                  }
-                  
-                  
-                </ul>
+              <Route path="/products/:id" component={ProductScreen}/>
+              <Route path="/" exact={true} component={HomeScreens}/>
+                
             </div>
         </main>
         <footer className="footer">All Rights Reserved</footer>
     </div>
+    </BrowserRouter>
   );
   
 }
